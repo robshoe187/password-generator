@@ -1,5 +1,5 @@
 // Assignment code here
-
+//Function to gather password size and check for validity
 function passwordSizeEntry() {
   var passSize = parseInt(window.prompt("What is the length of your password? (8-128 Characters)"));
 
@@ -16,16 +16,57 @@ function passwordSizeEntry() {
     passwordSizeEntry();
   }
   else {
+    return(passSize);
+  }
+  
+}
+//Function for character selection
+function passPrompts() {
+  var addLower = "abcdefghijklmnopqrstuvwxyz"
+  var addUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var addisNumber = "0123456789";
+  var addSpecial = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+  var passwordPool = "";
+
+  var lowerCase = confirm("Would you like to include lower case letters?");
+  var upperCase = confirm("Would you like to include uppercase letters?");
+  var isNumber = confirm("Would you like to include numbers?");
+  var specialChar = confirm("Would you like to include special characters?"); 
+
+  if (lowerCase == true) {
+    passwordPool = passwordPool.concat(addLower);
+  }
+  
+  if (upperCase == true) {
+    passwordPool = passwordPool.concat(addUpper);
+  }
+
+  if (isNumber == true){
+    passwordPool = passwordPool.concat(addisNumber);
+  }
+
+  if (specialChar == true) {
+    passwordPool = passwordPool.concat(addSpecial);
+  }
+  if (lowerCase == false && upperCase == false && isNumber == false && specialChar == false) {
+    window.alert("No characters selected please try again.")
     passPrompts();
   }
+  return(passwordPool);
 }
-
-function passPrompts() {
-  console.log("passPrompts");
-}
-
+//Function for password generation
 function generatePassword() {
-  passwordSizeEntry();
+  
+  var finalPassword = "";
+  var tempChar = "";
+  var index = passwordSizeEntry();
+  var tempString = passPrompts();
+
+  for (let i = 0; i < index ; i++) {
+    
+    finalPassword = finalPassword.concat(tempString.charAt(Math.floor(Math.random() * tempString.length)));
+  }
+  return(finalPassword);
 }
 
 // Get references to the #generate element
